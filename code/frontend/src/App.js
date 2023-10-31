@@ -7,6 +7,8 @@ import * as cocossd from "@tensorflow-models/coco-ssd";
 import Webcam from "react-webcam";
 import "./App.css";
 import { drawRect } from "./utilities";
+import Description from "C:/Users/npotn/OneDrive/Documents/GitHub/CEM/code/frontend/src/components/Description.js";
+
 // 2. TODO - Import drawing utility here
 // e.g. import { drawRect } from "./utilities";
 
@@ -63,6 +65,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      <Description /> 
         <Webcam
           ref={webcamRef}
           muted={true} 

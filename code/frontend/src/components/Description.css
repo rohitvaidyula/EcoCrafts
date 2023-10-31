@@ -1,0 +1,9 @@
+.description {
+    text-align: center;
+}
+
+.description h1 {
+    margin: 0;
+    padding: 20px 0;
+    vertical-align: top;
+}
