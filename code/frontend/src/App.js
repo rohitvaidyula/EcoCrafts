@@ -64,8 +64,8 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-      <Description /> 
+      <Description />
+      <header className="App-header"> 
         <Webcam
           ref={webcamRef}
           muted={true} 
@@ -74,9 +74,10 @@ function App() {
             marginLeft: "auto",
             marginRight: "auto",
             left: 0,
-            right: 0,
+            right: 860,
+            top: 272, // Adjust the top property to move the webcam element up or down
             textAlign: "center",
-            zindex: 9,
+            zindex: 9, 
             width: 640,
             height: 480,
           }}
