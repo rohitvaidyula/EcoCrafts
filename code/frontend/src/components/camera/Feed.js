@@ -5,7 +5,7 @@ import Webcam from 'react-webcam';
 class Feed extends React.Component {
     render() {
         return (
-            <div>
+            <div className = "feed">
                 < Webcam 
                   width = {300}
                   height = {300}
