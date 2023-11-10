@@ -1,18 +1,17 @@
 // Import dependencies
 import React, { useRef, useState, useEffect } from "react";
-import * as tf from "@tensorflow/tfjs";
-// 1. TODO - Import required model here
-// e.g. import * as tfmodel from "@tensorflow-models/tfmodel";
-import * as cocossd from "@tensorflow-models/coco-ssd";
-import Webcam from "react-webcam";
 import "./App.css";
 import { drawRect } from "./utilities";
-import Description from "C:/Users/npotn/OneDrive/Documents/GitHub/CEM/code/frontend/src/components/Description.js";
-
-// 2. TODO - Import drawing utility here
-// e.g. import { drawRect } from "./utilities";
+import Description from "./components/Description";
+import Feed from './components/camera/Feed';
 
 function App() {
+<<<<<<< HEAD
+  return(
+    <div className = "app">
+      <Description />
+      <Feed />
+=======
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -64,8 +63,8 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-      <Description /> 
+      <Description />
+      <header className="App-header"> 
         <Webcam
           ref={webcamRef}
           muted={true} 
@@ -74,9 +73,10 @@ function App() {
             marginLeft: "auto",
             marginRight: "auto",
             left: 0,
-            right: 0,
+            right: 860,
+            top: 272, // Adjust the top property to move the webcam element up or down
             textAlign: "center",
-            zindex: 9,
+            zindex: 9, 
             width: 640,
             height: 480,
           }}
@@ -97,6 +97,7 @@ function App() {
           }}
         />
       </header>
+>>>>>>> 7db1532b08abcb7125a278af36ec988a62ed8ee4
     </div>
   );
 }
