@@ -12,9 +12,10 @@ class Feed extends React.Component {
                 />
                 <div>
                     Instructions:
-                    <li>1</li>
-                    <li>1</li>
-                    <li>1</li>
+                    <li>Point the object in front of your web camera.</li>
+                    <li>Once the object's label appears, scroll to identify its listed recipes on how it can be upcycled.</li>
+                    <li>The, upload you personalized recipes!</li>
+                    <li>The model will update in 24 hours.</li>
                 </div>
             </div>
            
