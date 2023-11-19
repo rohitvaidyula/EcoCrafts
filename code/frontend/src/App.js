@@ -12,7 +12,7 @@ function App() {
       <Description />
       <Feed />
       <Accordion />
-    </div>
+     </div>
   );
 }
 
