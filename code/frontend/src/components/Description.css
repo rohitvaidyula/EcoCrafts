@@ -1,6 +1,9 @@
 .description {
     text-align: center;
     color: black;
+    display: flex;
+    flex-flow: column;
+    margin: 10px;
 }
 
 .description h1 {
@@ -9,4 +12,13 @@
 
 .description p {
     font-size: 16px;
+}
+
+hr {
+    
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 5em 0;
+    padding: 0;
 }

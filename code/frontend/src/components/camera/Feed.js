@@ -7,10 +7,9 @@ class Feed extends React.Component {
         return (
             <div className = "feed">
                 < Webcam 
-                  width = {300}
-                  height = {300}
+                 className="video-feed" 
                 />
-                <div>
+                <div className="instructions">
                     Instructions:
                     <li>Point the object in front of your web camera.</li>
                     <li>Once the object's label appears, scroll to identify its listed recipes on how it can be upcycled.</li>

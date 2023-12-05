@@ -1,17 +1,16 @@
 // Import dependencies
 import React, { useRef, useState, useEffect } from "react";
 import "./App.css";
-import { drawRect } from "./utilities";
 import Description from "./components/Description";
 import Feed from './components/camera/Feed';
-import Accordion from "./components/Accordion";
+import Navigation from "./components/Navigation/Navigation";
 
 function App() {
   return(
     <div className = "app">
+      <Navigation />
       <Description />
       <Feed />
-      <Accordion />
      </div>
   );
 }
