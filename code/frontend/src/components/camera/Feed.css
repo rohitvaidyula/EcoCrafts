@@ -1,13 +1,11 @@
-.feed {
+.container {
     display: flex;
-    align-items: center;
 }
 
-.video-feed {
-    height: 300;
-    width: 300;
-    border-radius: 20px;
-    border-style: solid;
-    border-color: #A36C4E;
-    margin: 15px;
+.camera {
+    flex-flow: column;
+}
+
+.instructions {
+    flex-flow: column;
 }

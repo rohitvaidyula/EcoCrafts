@@ -1,5 +1,5 @@
 // Import dependencies
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import Description from "./components/Description";
 import Feed from './components/camera/Feed';
