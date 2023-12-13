@@ -10,16 +10,13 @@ class Navigation extends React.Component {
           <div className="navigation container">
             <Navbar expand="lg" className="m-auto">
                 <Container>
-                    <Navbar.Brand href="#home">Icon</Navbar.Brand>
-                </Container>
-                <Container>
-                    <Navbar.Brand href="#home">CEM</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="m-auto">
-                        <Nav.Link href="#home">ABOUT</Nav.Link>
-                        <Nav.Link href="#link">INFO</Nav.Link>
-                        <Nav.Link href="#link">COMMUNITY</Nav.Link>
+                        <Nav.Link href="#home">EcoCrafts</Nav.Link>
+                        <Nav.Link href="#link">Recipes</Nav.Link>
+                        {/* Upload custom recipes to the communities tab.*/}
+                        <Nav.Link href="#link">Community</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
