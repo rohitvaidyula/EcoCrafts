@@ -1,19 +1,13 @@
 import React, {useState, useEffect} from "react";
 import './Result.css';
+import { useLocation } from "react-router-dom";
 
 function Result() {
     const [label, setLabel] = useState("");
-
-    useEffect(() => {
-        fetch('/results').then(res => res.json()).then(data => {
-            setLabel(data);
-        });
-    }, []);
-
-
+    const state = useLocation();
     return (
         <div className="container">
-            <p>Selected Label: {label}</p>
+            
         </div>
     );
 }

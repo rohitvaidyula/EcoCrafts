@@ -1,16 +1,60 @@
-import React from "react";
-import Description from "../Description";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
+import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
+
 function Homepage() {
+    const navigate = useNavigate();
+    const webcamRef = useRef(null);
+    const [imgSrc, setImgSrc] = useState(null);
+    
+    const captureImg = useCallback(async () => {
+        const imageString = webcamRef.current.getScreenshot();
+        setImgSrc(imageString);
+        
+        const requestSetting = {
+           method: 'POST',
+           headers: {'Content-Type': 'application/json' },
+           body: JSON.stringify({
+                image: imageString
+           })
+        };
+
+        console.log(typeof(imageString));
+        fetch('/send_image', requestSetting);
+    }, [webcamRef]);
+   
+
     return(
         <div className="homepage">
-            <div className="description container">
-                <Description />
+            <div className="description">
+                <p>
+                    <b>C</b>ircular <b>E</b>conomy <b>M</b>anager is a web-based trash classification tool
+                    that informs you, the user, on how your plastic can be upccycled into a 
+                    Circular Economy based on crowd-sourced input
+                </p>
+                <p>Try it out yourself!</p>
             </div>
 
-            <div className="cam-feed container">
-                <Webcam />
+            <div className="cam-feed">
+                <Webcam 
+                ref={webcamRef}
+                height={640}
+                width={640}
+                minScreenshotHeight={640}
+                minScreenshotWidth={640}
+                screenshotFormat="image/jpeg"
+                />
+                
+                <Button variant="primary" onClick={captureImg}> Capture Screenshot</Button> 
+                
+                Instructions:
+                <li>Point the object in front of your web camera.</li>
+                <li>Once the object's label appears, scroll to identify its listed recipes on how it can be upcycled.</li>
+                <li>The, upload you personalized recipes!</li>
+                <li>The model will update in 24 hours.</li>
             </div>
+
         </div>
     )
 }

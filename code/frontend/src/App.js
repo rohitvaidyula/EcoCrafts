@@ -12,13 +12,10 @@ function App() {
       <div className="container">
         <Navigation />
       </div>
-
-      <div className="container">
-        <Routes>
-          <Route exact path = "/" element = {<Homepage />} />
-          <Route path = "/results" element = {<Result />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route exact path = "/" element = {<Homepage />} />
+        <Route path = "/result" element = {<Result />} />
+      </Routes>
     </div>
   )
 }
