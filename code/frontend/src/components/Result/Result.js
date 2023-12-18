@@ -4,10 +4,10 @@ import { useLocation } from "react-router-dom";
 
 function Result() {
     const [label, setLabel] = useState("");
-    const state = useLocation();
+    const result = useLocation();
     return (
         <div className="container">
-            
+            Detected Label: {result.state.label}
         </div>
     );
 }

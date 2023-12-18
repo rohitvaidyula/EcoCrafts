@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-
+import "./Homepage.css";
 function Homepage() {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
     const [imgSrc, setImgSrc] = useState(null);
     
-    const captureImg = useCallback(async () => {
+    const captureImg = useCallback(() => {
         const imageString = webcamRef.current.getScreenshot();
         setImgSrc(imageString);
         
@@ -20,8 +20,12 @@ function Homepage() {
            })
         };
 
-        console.log(typeof(imageString));
         fetch('/send_image', requestSetting);
+        const response = fetch('/get_result')
+
+        navigate('/result', {
+            state: {label: response}
+        })
     }, [webcamRef]);
    
 
@@ -39,10 +43,10 @@ function Homepage() {
             <div className="cam-feed">
                 <Webcam 
                 ref={webcamRef}
-                height={640}
-                width={640}
-                minScreenshotHeight={640}
-                minScreenshotWidth={640}
+                height={450}
+                width={450}
+                minScreenshotHeight={416}
+                minScreenshotWidth={416}
                 screenshotFormat="image/jpeg"
                 />
                 
