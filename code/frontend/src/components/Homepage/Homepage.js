@@ -11,7 +11,6 @@ function Homepage() {
     const captureImg = useCallback(() => {
         const imageString = webcamRef.current.getScreenshot();
         setImgSrc(imageString);
-        
         const requestSetting = {
            method: 'POST',
            headers: {'Content-Type': 'application/json' },
@@ -20,12 +19,17 @@ function Homepage() {
            })
         };
 
-        fetch('/send_image', requestSetting);
-        const response = fetch('/get_result')
+        fetch('/send_image', requestSetting)
+        
+        
+        const label = ""
 
-        navigate('/result', {
-            state: {label: response}
-        })
+        fetch('/results')
+            .then(response => response.json())
+            .then(data => label = data)
+            .then(navigate("/result", {state: label}))
+            .catch(error => console.error(error));    
+    
     }, [webcamRef]);
    
 

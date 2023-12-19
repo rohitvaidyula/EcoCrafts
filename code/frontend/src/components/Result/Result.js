@@ -3,11 +3,11 @@ import './Result.css';
 import { useLocation } from "react-router-dom";
 
 function Result() {
-    const [label, setLabel] = useState("");
     const result = useLocation();
+    const data = result.state
     return (
-        <div className="container">
-            Detected Label: {result.state.label}
+        <div>
+            <h2>{data.label}</h2>
         </div>
     );
 }
