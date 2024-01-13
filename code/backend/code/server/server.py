@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from ultralytics import YOLO
 import numpy as np
 from PIL import Image
@@ -6,6 +7,7 @@ import base64
 import cv2 as cv
 #Initialize Flask application
 app = Flask(__name__)
+CORS(app)
 
 labels_dict = {
     1: "Aluminium foil",
@@ -68,7 +70,7 @@ def compute_image():
 @app.route("/results", methods = ["GET"])
 def send_result():
     resulting_label = get_label('screenshot.jpg')
-    return resulting_label
+    return  resulting_label
 
 if __name__ == '__main__':
     app.run(debug=True)

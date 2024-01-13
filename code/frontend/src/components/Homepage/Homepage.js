@@ -7,7 +7,8 @@ function Homepage() {
     const navigate = useNavigate();
     const webcamRef = useRef(null);
     const [imgSrc, setImgSrc] = useState(null);
-    
+    const [label, setLabel] = useState(null);
+
     const captureImg = useCallback(() => {
         const imageString = webcamRef.current.getScreenshot();
         setImgSrc(imageString);
@@ -18,21 +19,18 @@ function Homepage() {
                 image: imageString
            })
         };
-
         fetch('/send_image', requestSetting)
-        
-        
-        const label = ""
 
         fetch('/results')
-            .then(response => response.json())
-            .then(data => label = data)
-            .then(navigate("/result", {state: label}))
-            .catch(error => console.error(error));    
-    
+        .then(response => response.json())
+        .then((data) => {
+            setLabel(data);
+            console.log(data);
+        })
+
+        console.log(label)
     }, [webcamRef]);
    
-
     return(
         <div className="homepage">
             <div className="description">
@@ -61,6 +59,7 @@ function Homepage() {
                 <p>4.  Uploading your personalized recipes!</p>
             </div>
 
+            <p>{label}</p>          
         </div>
     )
 }

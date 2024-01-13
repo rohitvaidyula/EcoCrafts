@@ -14,7 +14,7 @@ function App() {
       </div>
       <Routes>
         <Route exact path = "/" element = {<Homepage />} />
-        <Route path = "/result" element = {<Result />} />
+        <Route exact path = "/results" element = {<Result />} />
       </Routes>
     </div>
   )
