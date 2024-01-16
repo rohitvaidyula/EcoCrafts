@@ -1,1 +1,5 @@
-# CEM
+# EcoCrafts
+
+# Purpose
+
+# Use Cases
