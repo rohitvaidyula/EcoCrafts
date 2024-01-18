@@ -62,7 +62,7 @@ function Homepage() {
             
             <div className="Upcycling">
             <h2><b>What is upcycling?</b></h2>
-                <p>Upcycling is a method of taking waste items and turning them into higher quality or value for frequent use. For example, turning a paper cup into an art display!</p>
+                <p>Upcycling is the creative process of transforming discarded or unused materials into new products of higher value or quality. For example, turning paper cups into an art display!</p>
             </div>
             
             <div className="Activity">
