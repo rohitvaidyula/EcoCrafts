@@ -32,16 +32,60 @@ function Homepage() {
     }, [webcamRef]);
    
     return(
-        <div className="homepage">
-            <div className="description">
-                <p>
-                    <b>EcoCrafts</b> is an interactive EdTech platform which builds on the sustainability guidelines set by <b>UNICEF</b> and the <b>Majhi Vasundhara</b> curriculum to enhance climate literacy in India. Using ML+real-time object detection, EcoCrafts provides upcycling instructions for solid waste management through hands-on activities for children’s education.
-                </p>
-                <h><b>What is upcycling?</b></h>
-                <p>Upcycling is a method of taking waste items and turning them into higher quality or value for frequent use. For example, turning a paper cup into an art display!</p>
+        <div className="homepage finger-paint-regular">
+            <div className="Title">
+                <h1>EcoCrafts!</h1>
+                <p>Scan your solid waste.</p>
             </div>
 
-            <div className="cam-feed">
+            <div className="Camera">
+            <Webcam 
+                ref={webcamRef}
+                height={550}
+                width={550}
+                minScreenshotHeight={500}
+                minScreenshotWidth={500}
+                screenshotFormat="image/jpeg"
+                />
+            </div>
+
+            <div className="ScreenshotButton">
+                <Button variant="primary" onClick={captureImg}> Capture Screenshot</Button> 
+            </div>
+
+            <div className="About">
+            <h2><b>About</b></h2>
+                <p>
+                EcoCrafts is an interactive activity which builds on the environmental guidelines set by UNICEF and the sustainability curriculum outlined in the Mumbai Climate Action Plan to enhance climate change literacy in India. Using ML+real-time object detection, EcoCrafts provides localized upcycling instructions for solid waste management through hands-on activities for children’s education.
+                </p>
+            </div>
+            
+            <div className="Upcycling">
+            <h2><b>What is upcycling?</b></h2>
+                <p>Upcycling is a method of taking waste items and turning them into higher quality or value for frequent use. For example, turning a paper cup into an art display!</p>
+            </div>
+            
+            <div className="Activity">
+            <h2><b>The Activity</b></h2>
+                <p>1.  Scan your solid waste.</p>
+                <p>2.  View upcycling recipes.</p>
+                <p>3.  Collect activity.</p>
+                <p>4.  Complete activity.</p>
+                <p>5.  Upload personalized recipes.</p>
+            </div>
+
+            <div className="Map">
+            <h2><b>Find Materials in Your Locality</b></h2>
+            </div>
+
+            <div className="Upload">
+            <h2><b>Upload Yours</b></h2>
+            </div>
+
+            {/* <div className="description">
+                <h1>EcoCrafts!</h1>
+                <p>Scan your solid waste.</p>
+                <div className="cam-feed">
                 <Webcam 
                 ref={webcamRef}
                 height={450}
@@ -52,14 +96,23 @@ function Homepage() {
                 />
                 
                 <Button variant="primary" onClick={captureImg}> Capture Screenshot</Button> 
-                <p><b>Begin by:</b></p>
+                <p><b>The Activity</b></p>
                 <p>1.  Scanning your solid waste.</p>
                 <p>2.  Identifying the label.</p>
                 <p>3.  Scrolling to the activities.</p>
                 <p>4.  Uploading your personalized recipes!</p>
             </div>
+                <h2><b>About</b></h2>
+                <p>
+                EcoCrafts is an interactive activity which builds on the environmental guidelines set by UNICEF and the sustainability curriculum outlined in the Mumbai Climate Action Plan to enhance climate change literacy in India. Using ML+real-time object detection, EcoCrafts provides localized upcycling instructions for solid waste management through hands-on activities for children’s education.
+                </p>
+                <h2><b>What is upcycling?</b></h2>
+                <p>Upcycling is a method of taking waste items and turning them into higher quality or value for frequent use. For example, turning a paper cup into an art display!</p>
+            </div>
 
-            <p>{label}</p>          
+
+
+            <p>{label}</p>           */}
         </div>
     )
 }
