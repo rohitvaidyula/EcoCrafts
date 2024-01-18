@@ -76,7 +76,7 @@ function Homepage() {
 
             <div className="Curriculum">
             <h2><b>Curriculum</b></h2>
-                <img src="C:\Users\npotn\OneDrive\Documents\GitHub\CEM\code\frontend\public\activityimg.png" alt=""/>
+                <img src="./activityrowimg.png" alt=""/>
             </div>
 
             <div className="Map">
