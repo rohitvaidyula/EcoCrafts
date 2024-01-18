@@ -81,6 +81,9 @@ function Homepage() {
 
             <div className="Map">
             <h2><b>Find Materials in Your Locality</b></h2>
+            <p>Travel with parent or guardian.</p>
+            {/* Insert map here. */}
+            <p>Mumbai, India</p>
             </div>
 
             <div className="Upload">
