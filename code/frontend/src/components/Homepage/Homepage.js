@@ -74,6 +74,11 @@ function Homepage() {
                 <p>5.  Upload personalized recipes.</p>
             </div>
 
+            <div className="Curriculum">
+            <h2><b>Curriculum</b></h2>
+                <img src="C:\Users\npotn\OneDrive\Documents\GitHub\CEM\code\frontend\public\activityimg.png" alt=""/>
+            </div>
+
             <div className="Map">
             <h2><b>Find Materials in Your Locality</b></h2>
             </div>
