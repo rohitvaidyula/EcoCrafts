@@ -53,16 +53,23 @@ function Homepage() {
                 <Button variant="primary" onClick={captureImg}> Capture Screenshot</Button> 
             </div>
 
+            <div>
+                <p>{label}</p>
+            </div>
             <div className="About">
             <h2><b>About</b></h2>
                 <p>
-                EcoCrafts is an interactive activity which builds on the environmental guidelines set by UNICEF and the sustainability curriculum outlined in the Mumbai Climate Action Plan to enhance climate change literacy in India. Using ML+real-time object detection, EcoCrafts provides localized upcycling instructions for solid waste management through hands-on activities for children’s education.
+                EcoCrafts is an interactive activity which builds on the environmental guidelines set by UNICEF and the sustainability curriculum outlined in the Mumbai 
+                Climate Action Plan to enhance climate change literacy in India. Using ML+real-time object detection, EcoCrafts provides localized upcycling instructions 
+                for solid waste management through hands-on activities for children’s education.
                 </p>
             </div>
             
             <div className="Upcycling">
             <h2><b>What is upcycling?</b></h2>
-                <p>Upcycling is the creative process of transforming discarded or unused materials into new products of higher value or quality. For example, turning paper cups into an art display!</p>
+                <p>Upcycling is the creative process of transforming discarded or unused materials into new products of higher value or quality. For example, turning paper 
+                   cups into an art display!
+                </p>
             </div>
             
             <div className="Activity">
