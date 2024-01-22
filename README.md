@@ -1,5 +1,7 @@
-# EcoCrafts
+# What is EcoCrafts?
 
-# Purpose
+# Inspiration
 
 # Use Cases
+
+# Contact Info
