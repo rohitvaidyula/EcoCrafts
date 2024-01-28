@@ -94,6 +94,9 @@ function Homepage() {
 
             <div className="Upload">
             <h2><b>Upload Yours</b></h2>
+            <a href="https://www.google.com/" target="_blank">
+                <img src="./uploadicon.png" width="70px" height="70px"/>
+            </a>
             </div>
         </div>
     )
