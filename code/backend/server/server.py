@@ -32,7 +32,7 @@ labels_dict = {
 }
 
 def get_label(image):
-    trained_model = YOLO('C:\\Users\\vaidy\Documents\EcoCrafts\code\\backend\code\server\\runs\\runs\\detect\\train5\\weights\\best.pt')
+    trained_model = YOLO('C:\\Users\\vaidy\\Documents\\EcoCrafts\\code\\backend\\server\\runs\\detect\\train5\\weights\\best.pt')
     results = trained_model.predict(image)
     single_label = ""
     labels = []
@@ -70,14 +70,23 @@ def compute_image():
 
 @app.route("/results", methods = ["GET"])
 def send_result():
-    recipe = "Joome Jo Pathaan"
     resulting_label = get_label('screenshot.jpg')
     recipe_dir_path = 'C:\\Users\\vaidy\\Documents\\EcoCrafts\\code\\backend\\recipes\\' + str(resulting_label)
+    recipe_folder_list = []
     for f in os.listdir(recipe_dir_path):
-        with open(os.path.join(recipe_dir_path, f)) as myfile:
-            recipe = myfile.read()
+        recipe_folder_list.append(str(f))
+    
+    for item in recipe_folder_list:
+        folder_name = recipe_dir_path + "\\"+ item
+        folder = os.listdir(folder_name)
+        for file in folder:
+            with open(os.path.join(file)) as f:
+                print(f.read())
 
+
+    
     return resulting_label
+
 
 if __name__ == '__main__':
     app.run(debug=True)
