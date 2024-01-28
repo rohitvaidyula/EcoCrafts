@@ -5,6 +5,7 @@
 .homepage {
     display: flex;
     flex-flow: column;
+    padding-bottom: 52px;
 }
 
 .finger-paint-regular {
@@ -63,7 +64,7 @@
 
 .Upload > a { 
   padding-bottom: 10px;
-  padding-top: 30px;
+  padding-top: 50px;
   padding-left: 100px;
 }
 
