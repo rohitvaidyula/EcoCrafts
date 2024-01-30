@@ -6,7 +6,9 @@ import "./Homepage.css";
 function Homepage() {
     const webcamRef = useRef(null);
     const [imgSrc, setImgSrc] = useState(null);
-    const [label, setLabel] = useState(null);
+    const [name, setName] = useState(null);
+    const [materials, setMaterials] = useState(null);
+    const [recipes, setRecipes] = useState(null);
 
     const captureImg = useCallback(() => {
         const imageString = webcamRef.current.getScreenshot();
@@ -22,12 +24,12 @@ function Homepage() {
 
         fetch('/results')
         .then(response => response.json())
-        .then((data) => {
-            setLabel(data);
-            console.log(data);
+        .then(data => {
+            setName(data.recipes[0].Name)
+            setMaterials(data.recipes[0].Material)
+            setRecipes(data.recipes[0].Recipe)
         })
-
-        console.log(label)
+        .catch(error => console.error(error));
     }, [webcamRef]);
    
     return(
@@ -53,8 +55,11 @@ function Homepage() {
             </div>
 
             <div>
-                <p>{label}</p>
+                <p>{name}</p>
+                <p>{materials}</p>
+                <p>{recipes}</p>
             </div>
+
             <div className="About">
             <h2><b>About</b></h2>
                 <p>

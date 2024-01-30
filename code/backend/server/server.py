@@ -6,6 +6,7 @@ import os
 from PIL import Image
 import base64
 import cv2 as cv
+from dataclasses import dataclass
 #Initialize Flask application
 app = Flask(__name__)
 CORS(app)
@@ -30,6 +31,13 @@ labels_dict = {
     17: "Styrofoam piece",
     18: "Unlabeled litter"
 }
+
+@dataclass
+class Recipe:
+    Name: str = ""
+    Material: str = ""
+    Recipe: str = ""
+
 
 def get_label(image):
     trained_model = YOLO('C:\\Users\\vaidy\\Documents\\EcoCrafts\\code\\backend\\server\\runs\\detect\\train5\\weights\\best.pt')
@@ -73,20 +81,18 @@ def send_result():
     resulting_label = get_label('screenshot.jpg')
     recipe_dir_path = 'C:\\Users\\vaidy\\Documents\\EcoCrafts\\code\\backend\\recipes\\' + str(resulting_label)
     recipe_folder_list = []
+    recipes_list = []
     for f in os.listdir(recipe_dir_path):
         recipe_folder_list.append(str(f))
     
     for item in recipe_folder_list:
         folder_name = recipe_dir_path + "\\"+ item
-        folder = os.listdir(folder_name)
-        for file in folder:
-            with open(os.path.join(file)) as f:
-                print(f.read())
+        mat_route = folder_name + "\\" + "mat.txt"
+        recipe_route = folder_name + "\\" + "recipe.txt"
+        with open(mat_route, 'r') as x, open(recipe_route, 'r') as y:
+            recipes_list.append(Recipe(item, x.read(), y.read()))
 
-
-    
-    return resulting_label
-
+    return jsonify({"recipes": recipes_list})
 
 if __name__ == '__main__':
     app.run(debug=True)
