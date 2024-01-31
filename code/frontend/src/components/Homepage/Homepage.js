@@ -141,7 +141,6 @@ function Homepage() {
                 >
 
                 </GoogleMap>
-                <p>Mumbai, India</p>
             </div>
 
             <div className="Upload">
