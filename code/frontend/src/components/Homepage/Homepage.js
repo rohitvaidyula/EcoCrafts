@@ -1,6 +1,8 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "react-bootstrap/Button";
+import {GoogleMap, useLoadScript, Marker} from '@react-google-maps/api';
+
 
 import "./Homepage.css";
 function Homepage() {
@@ -9,6 +11,23 @@ function Homepage() {
     const [name, setName] = useState(null);
     const [materials, setMaterials] = useState(null);
     const [recipes, setRecipes] = useState(null);
+    const libraries = ['places'];
+    const [lat, setLat] = useState(null);
+    const [lng, setLng] = useState(null);
+
+    const {isLoaded, loadError} = useLoadScript({
+        googleMapsApiKey: 'AIzaSyACPaWJ8S3RTCwrPCMPhqjtIYoASdAX4F0',
+        libraries,
+    });
+
+    const mapContainerStyle = {
+        width: '50vw',
+        height: '50vh',
+    };
+
+    useEffect(() => {
+        getLocation();
+    }, []);
 
     const captureImg = useCallback(() => {
         const imageString = webcamRef.current.getScreenshot();
@@ -32,6 +51,30 @@ function Homepage() {
         .catch(error => console.error(error));
     }, [webcamRef]);
    
+    const getLocation = () => {
+        if (!navigator.geolocation) {
+            console.log("map don't work cuhz");
+        } else {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setLat(position.coords.latitude);
+                    setLng(position.coords.longitude);
+                }
+            )
+        }
+    }
+    const center = {
+        lat: lat,
+        lng: lng,
+    }
+
+    if (loadError) {
+        return <div>Error loading maps</div>;
+    }
+
+    if(!isLoaded) {
+        return <div>Loading Map</div>;
+    }
     return(
         <div className="homepage finger-paint-regular">
             <div className="Title">
@@ -91,8 +134,14 @@ function Homepage() {
             <div className="Map">
             <h2><b>Find Materials in Your Locality</b></h2>
             <p>Travel with a parent or guardian.</p>
-            {/* <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d120678.72238046513!2d72.81094272215466!3d19.054499115593238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1srecycling%20centers%20in%20mumbai!5e0!3m2!1sen!2sus!4v1706237174455!5m2!1sen!2sus" width="1000" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> */}
-            <p>Mumbai, India</p>
+                <GoogleMap
+                mapContainerStyle={mapContainerStyle}
+                zoom={10}
+                center={center}
+                >
+
+                </GoogleMap>
+                <p>Mumbai, India</p>
             </div>
 
             <div className="Upload">
