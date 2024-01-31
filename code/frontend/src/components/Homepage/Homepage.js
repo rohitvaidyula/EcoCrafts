@@ -63,9 +63,7 @@ function Homepage() {
             <div className="About">
             <h2><b>About</b></h2>
                 <p>
-                EcoCrafts is an interactive activity which builds on the environmental guidelines set by UNICEF and the sustainability curriculum outlined in the Mumbai 
-                Climate Action Plan to enhance climate change literacy in India. Using ML+real-time object detection, EcoCrafts provides localized upcycling instructions 
-                for solid waste management through hands-on activities for children’s education.
+                EcoCrafts offers an engaging educational experience, introducing home-grown Indian agricultural, recreational, and lifestyle techniques to creatively upcycle solid waste. Through crowdsourcing methods and real-time object detection, EcoCrafts scales these recipes to a broader public, contributing to a more environmentally friendly and sustainable world.
                 </p>
             </div>
             
