@@ -134,6 +134,7 @@ function Homepage() {
             <div className="Map">
             <h2><b>Find Materials in Your Locality</b></h2>
             <p>Travel with a parent or guardian.</p>
+            <h3>
                 <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={10}
@@ -141,6 +142,7 @@ function Homepage() {
                 >
 
                 </GoogleMap>
+            </h3>
             </div>
 
             <div className="Upload">
