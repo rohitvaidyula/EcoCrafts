@@ -106,7 +106,7 @@ function Homepage() {
             <div className="About">
             <h2><b>About</b></h2>
                 <p>
-                EcoCrafts offers an engaging educational experience, introducing homegrown Indian agricultural, recreational, and lifestyle techniques to creatively upcycle solid waste. Through crowdsourcing methods and real-time object detection, EcoCrafts scales these recipes to a broader public, contributing to a more environmentally friendly and sustainable world.
+                EcoCrafts offers an engaging educational experience, introducing homegrown Indian agricultural, recreational, and lifestyle techniques to creatively upcycle municipal solid waste. Through crowdsourcing methods and real-time object detection, EcoCrafts scales these recipes to a broader public, contributing to a more environmentally friendly and sustainable world.
                 </p>
             </div>
             
