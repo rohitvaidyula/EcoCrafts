@@ -26,7 +26,10 @@ function Homepage() {
     const libraries = ['places'];
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
-    const [address, setAddress] = useState(null);
+    const resultCenter = {
+        lat: 0.000,
+        lang: 0.000
+    }
 
     const mapContainerStyle = {
         width: '40vw',
@@ -78,23 +81,20 @@ function Homepage() {
             'X-Goog-Api-Key': 'AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ',
             'X-Goog-FieldMask': 'places.displayName,places.formattedAddress'
             },
-            body: `{\n  "textQuery" : "Plastic Recycling Centers",\n  "openNow": true,\n  "maxResultCount": 3,\n  "locationBias": {\n    "circle": {\n      "center": {"latitude": ${latitude}, "longitude": ${longitude}},\n      "radius": 500.0\n    }\n  },\n}`
+            body: `{\n  "textQuery" : "Plastic Recycling Centers",\n  "openNow": true,\n  "maxResultCount": 3,\n  "locationBias": {\n    "circle": {\n      "center": {"latitude": ${latitude}, "longitude": ${longitude}},\n      "radius": 1000.0\n    }\n  },\n}`
         }).then(response => response.json())
-        .then(data => console.log(typeof(data.places[1].displayName.text)));   
-        
-        JSON.stringify(address);
-
-        setDefaults({
-            key: "AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ",
-            language: "en"
-    })
-
-        fromAddress(address)
-            .then(({results}) => {
-                const {lat, lng} = results[0].geometry.location;
-                console.log(lat, lng);
+        .then(data => {
+            setDefaults({
+                key: "AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ",
+                language: "en"
             })
-            .catch(console.error);
+            fromAddress(data.places[1].displayName.text)
+                .then(({results}) => {
+                    const {lat, lng} = results[0].geometry.location;
+                    console.log(lat, lng);
+                })
+                .catch(console.error);
+        });
 
         fetch('/results')
         .then(response => response.json())
