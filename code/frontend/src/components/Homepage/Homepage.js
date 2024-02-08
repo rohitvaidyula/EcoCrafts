@@ -1,10 +1,22 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "react-bootstrap/Button";
-import {GoogleMap, useLoadScript, Marker} from '@react-google-maps/api';
-
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import {
+    setKey,
+    setDefaults,
+    setLanguage,
+    setRegion,
+    fromAddress,
+    fromLatLng,
+    fromPlaceId,
+    setLocationType,
+    geocode,
+    RequestType,
+  } from "react-geocode";
 
 import "./Homepage.css";
+
 function Homepage() {
     const webcamRef = useRef(null);
     const [imgSrc, setImgSrc] = useState(null);
@@ -12,22 +24,40 @@ function Homepage() {
     const [materials, setMaterials] = useState(null);
     const [recipes, setRecipes] = useState(null);
     const libraries = ['places'];
-    const [lat, setLat] = useState(null);
-    const [lng, setLng] = useState(null);
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+    const [address, setAddress] = useState(null);
+
+    const mapContainerStyle = {
+        width: '40vw',
+        height: '40vh',
+    };
+
+    const getLocation = () => {
+        if (!navigator.geolocation) {
+            console.log("map don't work cuhz");
+        } else {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setLatitude(position.coords.latitude);
+                    setLongitude(position.coords.longitude);
+                }
+            )
+        }
+    }
+
+    getLocation();
+
+    const center = {
+        lat: latitude,
+        lng: longitude
+    };
 
     const {isLoaded, loadError} = useLoadScript({
-        googleMapsApiKey: 'AIzaSyACPaWJ8S3RTCwrPCMPhqjtIYoASdAX4F0',
+        googleMapsApiKey: 'AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ',
         libraries,
     });
 
-    const mapContainerStyle = {
-        width: '50vw',
-        height: '50vh',
-    };
-
-    useEffect(() => {
-        getLocation();
-    }, []);
 
     const captureImg = useCallback(() => {
         const imageString = webcamRef.current.getScreenshot();
@@ -41,6 +71,31 @@ function Homepage() {
         };
         fetch('/send_image', requestSetting)
 
+        fetch('https://places.googleapis.com/v1/places:searchText', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'X-Goog-Api-Key': 'AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ',
+            'X-Goog-FieldMask': 'places.displayName,places.formattedAddress'
+            },
+            body: `{\n  "textQuery" : "Plastic Recycling Centers",\n  "openNow": true,\n  "maxResultCount": 3,\n  "locationBias": {\n    "circle": {\n      "center": {"latitude": ${latitude}, "longitude": ${longitude}},\n      "radius": 500.0\n    }\n  },\n}`
+        }).then(response => response.json())
+        .then(data => console.log(typeof(data.places[1].displayName.text)));   
+        
+        JSON.stringify(address);
+
+        setDefaults({
+            key: "AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ",
+            language: "en"
+    })
+
+        fromAddress(address)
+            .then(({results}) => {
+                const {lat, lng} = results[0].geometry.location;
+                console.log(lat, lng);
+            })
+            .catch(console.error);
+
         fetch('/results')
         .then(response => response.json())
         .then(data => {
@@ -51,30 +106,6 @@ function Homepage() {
         .catch(error => console.error(error));
     }, [webcamRef]);
    
-    const getLocation = () => {
-        if (!navigator.geolocation) {
-            console.log("map don't work cuhz");
-        } else {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLat(position.coords.latitude);
-                    setLng(position.coords.longitude);
-                }
-            )
-        }
-    }
-    const center = {
-        lat: lat,
-        lng: lng,
-    }
-
-    if (loadError) {
-        return <div>Error loading maps</div>;
-    }
-
-    if(!isLoaded) {
-        return <div>Loading Map</div>;
-    }
     return(
         <div className="homepage finger-paint-regular">
             <div className="Title">
@@ -132,14 +163,14 @@ function Homepage() {
             </div>
 
             <div className="Map">
-            <h2><b>Find Materials in Your Locality</b></h2>
-            <p>Travel with a parent or guardian.</p>
+                <h2><b>Find Materials in Your Locality</b></h2>
+                <p>Travel with a parent or guardian.</p>
                 <GoogleMap
-                mapContainerStyle={mapContainerStyle}
-                zoom={10}
-                center={center}
+                    mapContainerStyle={mapContainerStyle}
+                    zoom={10}
+                    center={center}
                 >
-
+                    <Marker position={center} />
                 </GoogleMap>
             </div>
 
