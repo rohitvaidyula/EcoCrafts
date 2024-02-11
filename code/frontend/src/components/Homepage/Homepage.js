@@ -1,35 +1,23 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "react-bootstrap/Button";
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import {
-    setKey,
     setDefaults,
-    setLanguage,
-    setRegion,
     fromAddress,
-    fromLatLng,
-    fromPlaceId,
-    setLocationType,
-    geocode,
-    RequestType,
   } from "react-geocode";
 
 import "./Homepage.css";
 
+const coordinate_array = [];
+
 function Homepage() {
     const webcamRef = useRef(null);
-    const [imgSrc, setImgSrc] = useState(null);
     const [name, setName] = useState(null);
     const [materials, setMaterials] = useState(null);
     const [recipes, setRecipes] = useState(null);
-    const libraries = ['places'];
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
-    const resultCenter = {
-        lat: 0.000,
-        lang: 0.000
-    }
 
     const mapContainerStyle = {
         width: '40vw',
@@ -49,31 +37,7 @@ function Homepage() {
         }
     }
 
-    getLocation();
-
-    const center = {
-        lat: latitude,
-        lng: longitude
-    };
-
-    const {isLoaded, loadError} = useLoadScript({
-        googleMapsApiKey: 'AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ',
-        libraries,
-    });
-
-
-    const captureImg = useCallback(() => {
-        const imageString = webcamRef.current.getScreenshot();
-        setImgSrc(imageString);
-        const requestSetting = {
-           method: 'POST',
-           headers: {'Content-Type': 'application/json' },
-           body: JSON.stringify({
-                image: imageString
-           })
-        };
-        fetch('/send_image', requestSetting)
-
+    const getMarkers = () => {
         fetch('https://places.googleapis.com/v1/places:searchText', {
             method: 'POST',
             headers: {
@@ -81,20 +45,47 @@ function Homepage() {
             'X-Goog-Api-Key': 'AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ',
             'X-Goog-FieldMask': 'places.displayName,places.formattedAddress'
             },
-            body: `{\n  "textQuery" : "Plastic Recycling Centers",\n  "openNow": true,\n  "maxResultCount": 3,\n  "locationBias": {\n    "circle": {\n      "center": {"latitude": ${latitude}, "longitude": ${longitude}},\n      "radius": 1000.0\n    }\n  },\n}`
+            body: `{\n  "textQuery" : "Plastic Recycling Center",\n  "maxResultCount": 5,\n  "locationBias": {\n    "circle": {\n      "center": {"latitude": ${latitude}, "longitude": ${longitude}},\n      "radius": 25000.0\n    }\n  },\n}`
         }).then(response => response.json())
         .then(data => {
             setDefaults({
                 key: "AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ",
                 language: "en"
+            });
+            const places = data.places;
+            places.forEach((place) => {
+                fromAddress(place.formattedAddress)
+                    .then(({results}) =>{
+                        const {lat, lng} = results[0].geometry.location;
+                        coordinate_array.push({
+                            "lat": lat,
+                            "lng": lng,
+                        })
+                    })
             })
-            fromAddress(data.places[1].displayName.text)
-                .then(({results}) => {
-                    const {lat, lng} = results[0].geometry.location;
-                    console.log(lat, lng);
-                })
-                .catch(console.error);
         });
+    }
+
+    
+    getLocation();
+    getMarkers();
+
+    const init_center = {
+        lat: latitude,
+        lng: longitude
+    };
+
+    const captureImg = useCallback(() => {
+        const imageString = webcamRef.current.getScreenshot();
+        const requestSetting = {
+           method: 'POST',
+           headers: {'Content-Type': 'application/json' },
+           body: JSON.stringify({
+                image: imageString
+           })
+        };
+
+        fetch('/send_image', requestSetting)
 
         fetch('/results')
         .then(response => response.json())
@@ -105,7 +96,9 @@ function Homepage() {
         })
         .catch(error => console.error(error));
     }, [webcamRef]);
-   
+
+    
+
     return(
         <div className="homepage finger-paint-regular">
             <div className="Title">
@@ -165,19 +158,23 @@ function Homepage() {
             <div className="Map">
                 <h2><b>Find Materials in Your Locality</b></h2>
                 <p>Travel with a parent or guardian.</p>
-                <GoogleMap
-                    mapContainerStyle={mapContainerStyle}
-                    zoom={10}
-                    center={center}
-                >
-                    <Marker position={center} />
-                </GoogleMap>
+                <h3>
+                    <GoogleMap
+                        mapContainerStyle={mapContainerStyle}
+                        zoom={10}
+                        center={init_center}
+                    >
+                    {coordinate_array.map((coord) => (
+                            <Marker position={{lat: coord.lat, lng: coord.lng}} />
+                    ))}
+                    </GoogleMap>
+                </h3>
             </div>
 
             <div className="Upload">
             <h2><b>Upload Yours</b></h2>
-            <a href="https://d06bj4iwir2.typeform.com/to/yRScudbg" target="_blank">
-                <img src="./uploadicon.png" width="70px" height="70px"/>
+            <a href="https://d06bj4iwir2.typeform.com/to/yRScudbg">
+                <img alt = "Stuff" src="./uploadicon.png" width="70px" height="70px"/>
             </a>
             </div>
         </div>
