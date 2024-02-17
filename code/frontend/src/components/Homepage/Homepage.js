@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "react-bootstrap/Button";
-import { GoogleMap, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import {
     setDefaults,
     fromAddress,
@@ -13,11 +13,12 @@ const coordinate_array = [];
 
 function Homepage() {
     const webcamRef = useRef(null);
-    const [name, setName] = useState(null);
-    const [materials, setMaterials] = useState(null);
-    const [recipes, setRecipes] = useState(null);
+    const [name, setName] = useState("");
+    const [materials, setMaterials] = useState("");
+    const [recipes, setRecipes] = useState("");
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
+    const [infoWindowVis, setInfoWindowVis] = useState(false);
 
     const mapContainerStyle = {
         width: '40vw',
@@ -45,7 +46,7 @@ function Homepage() {
             'X-Goog-Api-Key': 'AIzaSyCnsJR0l_GjIBQ6GGPgoGMgWue8SWJFytQ',
             'X-Goog-FieldMask': 'places.displayName,places.formattedAddress'
             },
-            body: `{\n  "textQuery" : "Plastic Recycling Center",\n  "maxResultCount": 5,\n  "locationBias": {\n    "circle": {\n      "center": {"latitude": ${latitude}, "longitude": ${longitude}},\n      "radius": 25000.0\n    }\n  },\n}`
+            body: `{\n  "textQuery" : "Plastic Recycling Center",\n  "maxResultCount": 7,\n  "locationBias": {\n    "circle": {\n      "center": {"latitude": ${latitude}, "longitude": ${longitude}},\n      "radius": 25000.0\n    }\n  },\n}`
         }).then(response => response.json())
         .then(data => {
             setDefaults({
@@ -58,6 +59,7 @@ function Homepage() {
                     .then(({results}) =>{
                         const {lat, lng} = results[0].geometry.location;
                         coordinate_array.push({
+                            "address": place.formattedAddress,
                             "lat": lat,
                             "lng": lng,
                         })
@@ -90,9 +92,15 @@ function Homepage() {
         fetch('/results')
         .then(response => response.json())
         .then(data => {
-            setName(data.recipes[0].Name)
-            setMaterials(data.recipes[0].Material)
-            setRecipes(data.recipes[0].Recipe)
+            let name = data.recipes[0].Name;
+            let material = data.recipes[0].Material;
+            let recipe = data.recipes[0].Recipe;
+            name.replace(/(\r\n|\r|\n)/g, '<br/>');
+            material.replace(/(\r\n|\r|\n)/g, '<br/>');
+            recipe.replace(/(\r\n|\r|\n)/g, '<br/>');
+            setName(name);
+            setMaterials(material);
+            setRecipes(recipe);
         })
         .catch(error => console.error(error));
     }, [webcamRef]);
@@ -109,10 +117,10 @@ function Homepage() {
             <div className="Camera">
             <Webcam 
                 ref={webcamRef}
-                height={550}
-                width={550}
-                minScreenshotHeight={500}
-                minScreenshotWidth={500}
+                height={640}
+                width={640}
+                minScreenshotHeight={640}
+                minScreenshotWidth={640}
                 screenshotFormat="image/jpeg"
                 />
             </div>
@@ -121,16 +129,28 @@ function Homepage() {
                 <Button variant="primary" onClick={captureImg}> Capture Screenshot</Button> 
             </div>
 
-            <div>
-                <p>{name}</p>
-                <p>{materials}</p>
-                <p>{recipes}</p>
+            <div className="Results">
+                <h2>Recipe</h2>
+                <p>Capture Screenshot of item to view the recipe!</p>
+                <div>
+                    Recipe Name: {name}
+                </div>
+                <div>
+                    {materials.split("\n").map((string) => (
+                        <p>{string}</p>
+                    ))}
+                </div>
+                <div>
+                    {recipes.split("\n").map((string) => (
+                        <p>{string}</p>
+                    ))}
+                </div>
             </div>
 
             <div className="About">
             <h2><b>About</b></h2>
                 <p>
-                EcoCrafts offers an engaging educational experience, introducing home-grown Indian agricultural, recreational, and lifestyle techniques to creatively upcycle solid waste. Through crowdsourcing methods and real-time object detection, EcoCrafts scales these recipes to a broader public, contributing to a more environmentally friendly and sustainable world.
+                EcoCrafts offers an engaging educational experience, introducing homegrown Indian agricultural, recreational, and lifestyle techniques to creatively upcycle solid waste. Through crowdsourcing methods and real-time object detection, EcoCrafts scales these recipes to a broader public, contributing to a more environmentally friendly and sustainable world.
                 </p>
             </div>
             
@@ -165,7 +185,16 @@ function Homepage() {
                         center={init_center}
                     >
                     {coordinate_array.map((coord) => (
-                            <Marker position={{lat: coord.lat, lng: coord.lng}} />
+                            <Marker 
+                                position={{lat: coord.lat, lng: coord.lng}}
+                                onClick={() => setInfoWindowVis(!infoWindowVis)}
+                            >
+                                {infoWindowVis && (
+                                    <InfoWindow position={{lat: coord.lat, lng: coord.lng}}>
+                                        <p>{coord.formattedAddress}</p>
+                                    </InfoWindow>
+                                )}
+                            </Marker>
                     ))}
                     </GoogleMap>
                 </h3>
