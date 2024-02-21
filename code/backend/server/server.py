@@ -1,9 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from ultralytics import YOLO
-import numpy as np
 import os 
-from PIL import Image
 import base64
 import cv2 as cv
 from dataclasses import dataclass
@@ -12,24 +10,15 @@ app = Flask(__name__)
 CORS(app)
 
 labels_dict = {
-    1: "Aluminium foil",
-    2: "Bottle cap",
-    3: "Bottle",
-    4: "Broken glass",
-    5: "Can",
-    6: "Carton",
-    7: "Cigarette",
-    8: "Cup",
-    9: "Lid",
-    10: "Other litter",
-    11: "Other plastic",
-    12: "Paper",
-    13: "Plastic bag - wrapper",
-    14: "Plastic container",
-    15: "Pop tab",
-    16: "Straw",
-    17: "Styrofoam piece",
-    18: "Unlabeled litter"
+    1: "bottle",
+    2: "can",
+    3: "carton",
+    4: "cigarette",
+    5: "cup",
+    6: "glass",
+    7: "paper",
+    8: "plastic",
+    9: "straw",
 }
 
 @dataclass
@@ -38,9 +27,12 @@ class Recipe:
     Material: str = ""
     Recipe: str = ""
 
+abs_path = os.path.dirname(__file__) 
 
 def get_label(image):
-    trained_model = YOLO('C:\\Users\\vaidy\\Documents\\EcoCrafts\\code\\backend\\server\\runs\\detect\\train5\\weights\\best.pt')
+    relative_path = "runs\\detect\\train\\weights\\best.pt"
+    full_path = os.path.join(abs_path, relative_path)
+    trained_model = YOLO(full_path)
     results = trained_model.predict(image)
     single_label = ""
     labels = []
@@ -79,7 +71,7 @@ def compute_image():
 @app.route("/results", methods = ["GET"])
 def send_result():
     resulting_label = get_label('screenshot.jpg')
-    recipe_dir_path = 'C:\\Users\\vaidy\\Documents\\EcoCrafts\\code\\backend\\recipes\\' + str(resulting_label)
+    recipe_dir_path = abs_path + '\\recipes\\' + str(resulting_label)
     recipe_folder_list = []
     recipes_list = []
     for f in os.listdir(recipe_dir_path):
