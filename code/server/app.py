@@ -10,7 +10,7 @@ from dataclasses import dataclass
 abs_path = os.path.dirname(__file__)
 build_folder = "\\frontend\\build"
 build_path = os.path.join(abs_path, build_folder)
-ecocrafts = Flask(__name__, static_folder=build_path, static_url_path='')
+ecocrafts = Flask(__name__, static_folder=build_path, static_url_path='/')
 CORS(ecocrafts)
 
 labels_dict = {
