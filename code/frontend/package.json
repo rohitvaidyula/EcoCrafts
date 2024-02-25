@@ -2,7 +2,7 @@
   "name": "code",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://obscure-earth-89463-983cda58dbb5.herokuapp.com/",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
     "@testing-library/jest-dom": "^4.2.4",
