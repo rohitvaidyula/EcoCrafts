@@ -72,6 +72,7 @@ def compute_image():
 
 
 @ecocrafts.route("/results", methods = ["GET"])
+@cross_origin()
 def send_result():
     resulting_label = get_label('screenshot.jpg')
     recipe_dir_path = abs_path + '\\recipes\\' + str(resulting_label)

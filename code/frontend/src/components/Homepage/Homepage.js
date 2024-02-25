@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Button from "react-bootstrap/Button";
-import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, Marker, InfoWindowF } from '@react-google-maps/api';
 import {
     setDefaults,
     fromAddress,
@@ -60,6 +60,7 @@ function Homepage() {
                         const {lat, lng} = results[0].geometry.location;
                         coordinate_array.push({
                             "address": place.formattedAddress,
+                            "name": place.displayName.text,
                             "lat": lat,
                             "lng": lng,
                         })
@@ -190,9 +191,9 @@ function Homepage() {
                                 onClick={() => setInfoWindowVis(!infoWindowVis)}
                             >
                                 {infoWindowVis && (
-                                    <InfoWindow position={{lat: coord.lat, lng: coord.lng}}>
-                                        <p>{coord.formattedAddress}</p>
-                                    </InfoWindow>
+                                    <InfoWindowF position={{lat: coord.lat, lng: coord.lng}}>
+                                        <p>{coord.address} {coord.name}</p>
+                                    </InfoWindowF>
                                 )}
                             </Marker>
                     ))}
