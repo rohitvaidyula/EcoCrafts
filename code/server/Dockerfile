@@ -1,8 +1,8 @@
 FROM python:3.10.1
 
-COPY requirements.txt
+COPY requirements.txt .
 
-RUN pip install -r rquirements.txt
+RUN pip install -r rquirements.txt 
 
 COPY . .
 
