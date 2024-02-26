@@ -7,6 +7,7 @@ import base64
 from dataclasses import dataclass
 
 #Initialize Flask application
+abs_path = os.path.dirname(__file__)
 ecocrafts = Flask(__name__)
 CORS(ecocrafts)
 

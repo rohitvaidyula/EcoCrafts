@@ -88,9 +88,9 @@ function Homepage() {
            })
         };
 
-        fetch('/send_image', requestSetting)
+        fetch('https://ecocrafts.onrender.com/send_image', requestSetting)
 
-        fetch('/results')
+        fetch('https://ecocrafts.onrender.com/results')
         .then(response => response.json())
         .then(data => {
             let name = data.recipes[0].Name;
