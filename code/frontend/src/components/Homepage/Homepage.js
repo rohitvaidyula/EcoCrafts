@@ -131,8 +131,8 @@ function Homepage() {
             </div>
 
             <div className="Results">
-                <h2>Recipe</h2>
-                <p>Capture Screenshot of item to view the recipe!</p>
+                <h2><b>Recipe</b></h2>
+                <p>Capture Screenshot of your trash to view its upcycled recipe!</p>
                 <div>
                     Recipe Name: {name}
                 </div>
@@ -151,7 +151,7 @@ function Homepage() {
             <div className="About">
             <h2><b>About</b></h2>
                 <p>
-                EcoCrafts offers an engaging educational experience, introducing homegrown Indian agricultural, recreational, and lifestyle techniques to creatively upcycle solid waste. Through crowdsourcing methods and real-time object detection, EcoCrafts scales these recipes to a broader public, contributing to a more environmentally friendly and sustainable world.
+                EcoCrafts offers an engaging educational experience, introducing homegrown Indian agricultural, recreational, and lifestyle techniques to creatively upcycle solid waste. Through crowdsourcing methods and real-time object detection, EcoCrafts scales these recipes to a broader audience, contributing to a more environmentally friendly and sustainable world.
                 </p>
             </div>
             
@@ -202,10 +202,10 @@ function Homepage() {
             </div>
 
             <div className="Upload">
-            <h2><b>Upload Yours</b></h2>
-            <a href="https://d06bj4iwir2.typeform.com/to/yRScudbg">
-                <img alt = "Stuff" src="./uploadicon.png" width="70px" height="70px"/>
-            </a>
+                <h2><b>Upload Yours</b></h2>
+                <a href="https://d06bj4iwir2.typeform.com/to/yRScudbg" target="_blank">
+                    <img alt = "Stuff" src="./uploadicon.png" width="70px" height="70px"/>
+                </a>
             </div>
         </div>
     )
