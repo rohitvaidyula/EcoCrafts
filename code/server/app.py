@@ -30,7 +30,7 @@ class Recipe:
     Recipe: str = ""
 
 def get_label(image):
-    relative_path = "runs\\detect\\train\\weights\\best.pt"
+    relative_path = "runs/detect/train/weights/best.pt"
     full_path = os.path.join(abs_path, relative_path)
     trained_model = YOLO(full_path)
     results = trained_model.predict(image)
@@ -73,16 +73,16 @@ def compute_image():
 @cross_origin()
 def send_result():
     resulting_label = get_label('screenshot.jpg')
-    recipe_dir_path = abs_path + '\\recipes\\' + str(resulting_label)
+    recipe_dir_path = abs_path + '/recipes/' + str(resulting_label)
     recipe_folder_list = []
     recipes_list = []
     for f in os.listdir(recipe_dir_path):
         recipe_folder_list.append(str(f))
     
     for item in recipe_folder_list:
-        folder_name = recipe_dir_path + "\\"+ item
-        mat_route = folder_name + "\\" + "mat.txt"
-        recipe_route = folder_name + "\\" + "recipe.txt"
+        folder_name = recipe_dir_path + "/"+ item
+        mat_route = folder_name + "/" + "mat.txt"
+        recipe_route = folder_name + "/" + "recipe.txt"
         with open(mat_route, 'r') as x, open(recipe_route, 'r') as y:
             recipes_list.append(Recipe(item, x.read(), y.read()))
 
