@@ -8,10 +8,8 @@ from dataclasses import dataclass
 
 #Initialize Flask application
 abs_path = os.path.dirname(__file__)
-print(abs_path)
-build_folder = "\\frontend\\build"
-build_path = os.path.join(abs_path, build_folder)
-ecocrafts = Flask(__name__, static_folder=build_path, static_url_path='/')
+build_path = "..\\frontend\\build"
+ecocrafts = Flask(__name__, static_folder=build_path, static_url_path='')
 CORS(ecocrafts)
 
 labels_dict = {
