@@ -13,7 +13,7 @@
     "react-bootstrap": "^2.9.1",
     "react-dom": "^16.13.1",
     "react-geocode": "^1.0.0-alpha.1",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",
     "react-webcam": "^5.2.0"
   },
   "scripts": {
