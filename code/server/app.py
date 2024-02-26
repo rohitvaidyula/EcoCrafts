@@ -9,7 +9,7 @@ from dataclasses import dataclass
 #Initialize Flask application
 abs_path = os.path.dirname(__file__)
 build_path = "..\\frontend\\build"
-ecocrafts = Flask(__name__, static_folder=build_path, static_url_path='/home')
+ecocrafts = Flask(__name__, static_folder=build_path, static_url_path='/')
 CORS(ecocrafts)
 
 labels_dict = {
@@ -89,7 +89,7 @@ def send_result():
 
     return jsonify({"recipes": recipes_list})
 
-@ecocrafts.route("/home")
+@ecocrafts.route("/")
 @cross_origin() 
 def serve():
     return send_from_directory(ecocrafts.static_folder, 'index.html')
