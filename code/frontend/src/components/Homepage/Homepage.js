@@ -164,7 +164,7 @@ function Homepage() {
             
             <div className="Activity">
             <h2><b>The Activity</b></h2>
-                <p>1. Capture a screenshot with the object against a clear background.</p>
+                <p>1. Capture screenshot with the object against a clear background.</p>
                 <p>2.  View upcycling recipes.</p>
                 <p>3.  Collect additional materials.</p>
                 <p>4.  Complete activity.</p>
