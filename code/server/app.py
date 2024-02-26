@@ -7,9 +7,7 @@ import base64
 from dataclasses import dataclass
 
 #Initialize Flask application
-abs_path = os.path.dirname(__file__)
-build_path = "..\\frontend\\build"
-ecocrafts = Flask(__name__, static_folder=build_path, static_url_path='/')
+ecocrafts = Flask(__name__)
 CORS(ecocrafts)
 
 labels_dict = {
