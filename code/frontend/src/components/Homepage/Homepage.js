@@ -132,7 +132,7 @@ function Homepage() {
 
             <div className="Results">
                 <h2><b>Recipe</b></h2>
-                <p>Capture Screenshot of your trash to view its upcycled recipe!</p>
+                <p>Capture Screenshot of your trash to view its upcycled recipe! Each recipe varies in expertise. Please design under the supervision of a parent/guardian or instructor.</p>
                 <div>
                     Recipe Name: {name}
                 </div>
@@ -164,7 +164,7 @@ function Homepage() {
             
             <div className="Activity">
             <h2><b>The Activity</b></h2>
-                <p>1.  Scan your solid waste by capturing a screenshot.</p>
+                <p>1. Capture a screenshot with the object against a clear background.</p>
                 <p>2.  View upcycling recipes.</p>
                 <p>3.  Collect additional materials.</p>
                 <p>4.  Complete activity.</p>
