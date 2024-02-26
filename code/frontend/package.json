@@ -17,8 +17,8 @@
     "react-webcam": "^5.2.0"
   },
   "scripts": {
-    "start": "node code\\frontend\\node_modules\\react-scripts\\bin\\react-scripts.js start",
-    "build": "node code\\frontend\\node_modules\\react-scripts\\bin\\react-scripts.js build"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
