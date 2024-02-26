@@ -17,8 +17,8 @@
     "react-webcam": "^5.2.0"
   },
   "scripts": {
-    "start": "yarn start",
-    "build": "yarn build"
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
